@@ -214,7 +214,7 @@ with tab1:
         "Convergence":      ["🐢 Slow", "⚡ Fast", "🐢 Slow (noisy)"],
         "Uses Traces":      ["❌ No", "✅ Yes", "❌ No"],
     })
-    st.dataframe(df_compare, use_container_width=True, hide_index=True)
+    st.dataframe(df_compare, width='stretch', hide_index=True)
 
     st.markdown("""
     > **Bottom line:** Eligibility traces give TD(λ) the ability to efficiently propagate rewards
@@ -480,7 +480,7 @@ with tab2:
 
         # ── Summary table ──
         st.markdown("### 📋 Comparison Table")
-        st.dataframe(summ_df, use_container_width=True, hide_index=True)
+        st.dataframe(summ_df, width='stretch', hide_index=True)
 
         # Download buttons
         st.markdown("### 📥 Download Results")
