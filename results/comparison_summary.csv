@@ -1,4 +1,4 @@
 Agent,Mean Test Reward,Final Portfolio Value ($)
-TD(l=0.7),-0.119575,1.0467
-TD(0),-0.124487,1.0067
-Monte Carlo,-0.124191,1.0827
+TD(l=0.7),-0.216355,1.1984
+TD(0),-0.23309,0.8188
+Monte Carlo,-0.230326,0.802

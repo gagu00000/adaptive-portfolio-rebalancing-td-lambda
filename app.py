@@ -127,12 +127,69 @@ with st.sidebar:
     st.markdown("## ⚙️ Configuration")
     st.markdown("---")
 
-    tickers_input = st.text_input(
-        "Tickers (comma-separated)",
-        value="AAPL, MSFT, GOOGL, AMZN, SPY",
-        help="Yahoo Finance ticker symbols"
+    # ── Curated ticker catalogue (grouped by sector / type) ──
+    TICKER_OPTIONS = {
+        # 🖥️ Tech
+        "AAPL":  "Apple",
+        "MSFT":  "Microsoft",
+        "GOOGL": "Alphabet (Google)",
+        "AMZN":  "Amazon",
+        "META":  "Meta (Facebook)",
+        "NVDA":  "NVIDIA",
+        "TSLA":  "Tesla",
+        "AVGO":  "Broadcom",
+        "ADBE":  "Adobe",
+        "CRM":   "Salesforce",
+        "INTC":  "Intel",
+        "AMD":   "AMD",
+        "NFLX":  "Netflix",
+        "ORCL":  "Oracle",
+        # 💰 Finance
+        "JPM":   "JPMorgan Chase",
+        "V":     "Visa",
+        "MA":    "Mastercard",
+        "BAC":   "Bank of America",
+        "GS":    "Goldman Sachs",
+        # 🏥 Healthcare
+        "JNJ":   "Johnson & Johnson",
+        "UNH":   "UnitedHealth",
+        "PFE":   "Pfizer",
+        "LLY":   "Eli Lilly",
+        "ABBV":  "AbbVie",
+        # 🛒 Consumer
+        "WMT":   "Walmart",
+        "KO":    "Coca-Cola",
+        "PEP":   "PepsiCo",
+        "PG":    "Procter & Gamble",
+        "MCD":   "McDonald's",
+        "NKE":   "Nike",
+        # ⚡ Energy
+        "XOM":   "ExxonMobil",
+        "CVX":   "Chevron",
+        # 📈 ETFs & Indices
+        "SPY":   "S&P 500 ETF",
+        "QQQ":   "Nasdaq-100 ETF",
+        "DIA":   "Dow Jones ETF",
+        "IWM":   "Russell 2000 ETF",
+        "GLD":   "Gold ETF",
+        "TLT":   "20+ Year Treasury ETF",
+        "VTI":   "Total Stock Market ETF",
+    }
+
+    display_labels = [f"{sym} — {name}" for sym, name in TICKER_OPTIONS.items()]
+    sym_list = list(TICKER_OPTIONS.keys())
+    default_indices = [sym_list.index(s) for s in ["AAPL", "MSFT", "GOOGL", "AMZN", "SPY"]]
+
+    selected_labels = st.multiselect(
+        "Select Assets",
+        options=display_labels,
+        default=[display_labels[i] for i in default_indices],
+        help="Pick stocks & ETFs from the list (searchable)",
     )
-    tickers = [t.strip().upper() for t in tickers_input.split(",") if t.strip()]
+    tickers = [lbl.split(" — ")[0] for lbl in selected_labels]
+
+    if len(tickers) < 2:
+        st.warning("⚠️ Select at least 2 assets for a meaningful portfolio.")
 
     col1, col2 = st.columns(2)
     with col1:
